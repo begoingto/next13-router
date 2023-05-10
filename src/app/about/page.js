@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Page(){
     return (
-        <main>
+        <main className="max-w-screen-xl mx-auto">
             <div>
                 <div className="d-flex justify-content-center p-3">
                     <button className="btn btn-sm btn-secondary rounded-pill"><i className="bi bi-brightness-low"></i></button>

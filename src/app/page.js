@@ -1,23 +1,25 @@
 import Link from "next/link";
-import NavbarComponent from "@/components/NavbarComponent";
+import CardProduct from "@/components/CardProduct";
 
-export default function Home() {
+
+
+export async function getData(){
+    const res = await fetch("https://api.escuelajs.co/api/v1/products?limit=10&offset=10")
+    const data = await res.json()
+    return data
+}
+
+export default async function Home() {
+    const products = await getData();
     return (
         <>
-            <main>
-                <div>
-                    <div className="d-flex justify-content-center p-3">
-                        <button className="btn btn-sm btn-secondary rounded-pill"><i className="bi bi-brightness-low"></i></button>
-                    </div>
-                    <h1 className="text-uppercase fw-bold text-danger">Welcome to new NextJS 13.4</h1>
-                    <ul className="d-flex gap-4 list-unstyled justify-content-center">
-                        <li><Link href="/dashboard" className="text-decoration-none"><i className="bi bi-speedometer"></i> Dashboard</Link>
-                        </li>
-                        <li><Link href="/" className="text-decoration-none"><i className="bi bi-house-lock"></i> Home</Link></li>
-                        <li><a href="#" className="text-decoration-none">Product</a></li>
-                        <li><a href="#" className="text-decoration-none">Category</a></li>
-                        <li><Link href="/about" className="text-decoration-none">About Us</Link></li>
-                    </ul>
+            <main className="max-w-screen-xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {products.map((product,i) =>  <CardProduct
+                        key={i}
+                        image={product.images[product.images.length-1]}
+                        title={product.title}
+                    />)}
                 </div>
             </main>
         </>
