@@ -1,12 +1,9 @@
-import Link from "next/link";
 import CardProduct from "@/components/CardProduct";
 
 
-
 export async function getData(){
-    const res = await fetch("https://api.escuelajs.co/api/v1/products?limit=10&offset=10")
-    const data = await res.json()
-    return data
+    const res = await fetch("https://api.escuelajs.co/api/v1/products?limit=10&offset=1")
+    return await res.json()
 }
 
 export default async function Home() {
@@ -19,6 +16,7 @@ export default async function Home() {
                         key={i}
                         image={product.images[product.images.length-1]}
                         title={product.title}
+                        id={product.id}
                     />)}
                 </div>
             </main>

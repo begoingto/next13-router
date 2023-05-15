@@ -15,7 +15,7 @@ function NavbarComponent() {
     return (
 
         <nav className="bg-gray-900 text-white sticky z-20 top-0 border-bottom border-amber-200">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 px-0">
                 <Link href="/" className="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo"/>
                     <span
