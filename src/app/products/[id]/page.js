@@ -1,9 +1,31 @@
 import React from 'react';
 
 
-async function getProduct(id){
+async function getProduct(id) {
     const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`)
     return await res.json()
+}
+
+
+export async function generateMetadata({params, searchParams}, parent) {
+    const {id} = params
+    const product = await getProduct(id)
+
+    return {
+        title: product.title,
+        description: product.description,
+        metadataBase: new URL("https://istad.co"),
+        alternates: {
+            canonical: "/",
+            languages: {
+                "en-US": "/en-US",
+                "de-DE": "/de-DE",
+            }
+        },
+        openGraph: {
+            images: product.images[0]
+        }
+    }
 }
 
 // export async function generateStaticParams(){
@@ -14,29 +36,31 @@ async function getProduct(id){
 // }
 
 
-async function ProductDetail({params: { id }}) {
-    const product = await getProduct(id)
-    const image = product.images[product.images.length-1]
-    const title= product.title
-    console.log(product)
-    return (
-        <div className={"max-w-screen-xl mx-auto"}>
-            <div className="mx-auto max-w-[500px]">
-                <div className="flex flex-col iteclassNamenter border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img className="object-cover w-fuclassNameunded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                         src={image ? image : "https://bit.ly/44Oio4m"} alt="thumbnail" />
-                    <div className="flex flex-col jusclassNamebetween p-4 leading-normal">
-                        <h5 className="mb-2 text-2xl fonclassNamed tracking-tight dark:text-white">
-                            {title ? title : "Default title product"}
-                        </h5>
-                        <p className="mb-3 font-normal classNamegray-700 dark:text-gray-400">
-                            {product.description}
-                        </p>
+    async function ProductDetail({params: {id}}) {
+        const product = await getProduct(id)
+        const image = product.images[product.images.length - 1]
+        const title = product.title
+
+        return (
+            <div className={"max-w-screen-xl mx-auto"}>
+                <div className="mx-auto max-w-[500px]">
+                    <div
+                        className="flex flex-col iteclassNamenter border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img
+                            className="object-cover w-fuclassNameunded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                            src={image ? image : "https://bit.ly/44Oio4m"} alt="thumbnail"/>
+                        <div className="flex flex-col jusclassNamebetween p-4 leading-normal">
+                            <h5 className="mb-2 text-2xl fonclassNamed tracking-tight dark:text-white">
+                                {title ? title : "Default title product"}
+                            </h5>
+                            <p className="mb-3 font-normal classNamegray-700 dark:text-gray-400">
+                                {product.description}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
 
-export default ProductDetail;
+    export default ProductDetail;
