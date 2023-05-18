@@ -8,7 +8,7 @@ import {usePathname} from "next/navigation";
 function NavbarComponent() {
 
     const pathname= usePathname();
-    console.log(pathname)
+    if (pathname.includes("auth")) return null
 
     const active = (path) => (pathname === path ? "text-red-600": "")
 
@@ -50,8 +50,8 @@ function NavbarComponent() {
                                className={"block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:p-0 "+active("/about")}>About</Link>
                         </li>
                         <li>
-                            <a href="#"
-                               className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:p-0">Services</a>
+                            <Link href="/auth/login"
+                               className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:p-0">Login</Link>
                         </li>
                         <li>
                             <Link href="#"
